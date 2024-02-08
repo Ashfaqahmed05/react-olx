@@ -1,0 +1,18 @@
+.postHeading{
+    text-align: center;
+}
+
+.postContainer{
+    margin: 20px;
+    border: green solid 2px;
+    padding: 20px;
+}
+.postContainer input{
+    width: 70%;
+}
+.contOne{
+    border: 1px solid black;
+}
+.contTwo{
+    border: black 1px solid;
+}

@@ -1,0 +1,39 @@
+.footer {
+    background-color: #333; /* Dark background color for the footer */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    
+  }
+  .footerImages{
+    width: 100px;
+    display: flex;
+  }
+  .footer p {
+    margin: 0;
+
+  }
+  .footertop{
+    padding: 30px 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+  }
+  .footertop h5{
+    font-size: 13px;
+  }
+  .footertop p{
+    font-size: 12px;
+    line-height: 5px;
+
+  }
+  .footer a {
+    color: #ffce00; /* OLX Yellow color for links in the footer */
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
