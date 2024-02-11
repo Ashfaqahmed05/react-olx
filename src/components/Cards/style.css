@@ -1,3 +1,11 @@
 .card{
     cursor: pointer;
 }
+.card-text{
+    height: 30px;
+    font-size: 17px !important;
+    font-weight: 200 !important;
+    overflow: hidden;
+    
+    text-overflow: ellipsis;
+}

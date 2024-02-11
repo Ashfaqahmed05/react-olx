@@ -24,14 +24,27 @@
     height: 100%;
     background-color: #f7f8f8;
 }
-/* .navbar{
+.heading{
+    font-size: 22px;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+.reset{
+    width: 50px !important;
     display: flex;
-    padding: 10px;
-} */
-/* .card{
-    height: 400px;
-    background-color: white;
-} */                                      
+    align-items: center;
+    justify-content: center;
+    border-radius: 10%;
+    height: 40px;
+    background-color: rgb(197, 197, 197);
+}
+.reset:hover{
+    background-color: rgb(166, 165, 165);
+}
+.categoryDiv button{
+    max-width: 150px;
+}
+                                    
 .discount{
     position: absolute;
     top: 0;

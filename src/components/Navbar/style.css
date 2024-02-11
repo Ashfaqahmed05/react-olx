@@ -1,8 +1,10 @@
-
+.navbar{
+  height: 80px;
+}
 
 .logo{
   width: 60px;
-  height: 45px;
+  height: 35px;
 }
 .user{
   display: flex;

@@ -12,6 +12,8 @@ import {
   getDocs,
   getFirestore,
   setDoc,
+  query,
+  where
 } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 const firebaseConfig = {
@@ -85,4 +87,6 @@ export {
   setDoc,
   signinFirebase,
   uploadBytes,
+  query,
+  where
 };

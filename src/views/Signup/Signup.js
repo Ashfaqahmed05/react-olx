@@ -14,7 +14,6 @@ function Signup() {
       const userinfo = { username,  email, password };
       await SignupFirebase(userinfo);
       alert("Congratulations, You are Registered!");
-      navigate("/");
     } catch (error) {
       console.error("Error signing up:", error.message);
       alert(error.message)

@@ -30,14 +30,40 @@ const ProductDetail = () => {
     <div className="product-detail-container">
       {product ? (
         <>
+
+
           <div className="product-image">
-            <img src={product.FileURL} alt={product.title} />
+            <div id="carouselExampleIndicators" class="carousel slide">
+              <div className="carousel-indicators">
+                {product.FileURL.map((url, index) => (
+                  <button key={index} type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={index === 0 ? 'active' : ''} aria-label={`Slide ${index + 1}`}>
+                    <img src={url} className="d-block w-100" alt={`Slide ${index + 1}`} />
+                  </button>
+                ))}
+              </div>
+              <div className="carousel-inner">
+                {product.FileURL.map((url, index) => (
+                  <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                    <img src={url} className="images d-block w-100" alt={product.Title} />
+                  </div>
+                ))}
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
           </div>
           <div className="product-details">
             <h1>{product.Title}</h1>
             <p className="price">Price: ${product.Price}</p>
             <p className="description">{product.Description}</p>
-            
+
           </div>
         </>
       ) : (

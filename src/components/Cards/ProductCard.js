@@ -19,10 +19,12 @@ const ProductCard = ({ product }) => {
           />
           <div className="card-body">
             <h5 className="card-title">Rs.{product.Price}</h5>
+            {product.Discount && (
             <p className="discount">{product.Discount}% OFF</p>
+          )}
             <p className="card-text">{product.Description}</p>
             <div className="card-last">
-              <h6>{product.category}</h6>
+              <h6 style={{textTransform: 'capitalize'}}>{product.category}</h6>
             </div>
           </div>
         </div>

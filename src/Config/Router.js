@@ -9,6 +9,7 @@ import Header from "../components/Header/Header";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { Profile } from "../views/Profile/Profile";
+import Forgot from "../views/ForgotPassword/Forgot";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/DB";
 
@@ -23,6 +24,10 @@ import ErrorBoundary from "./Error";
         {
           path: "/",
           element: <Signin />,
+        },
+        {
+          path: "/forgot-password",
+          element: <Forgot />,
         },
         {
           path: "/signup",
@@ -56,25 +61,31 @@ import ErrorBoundary from "./Error";
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            setUser(user)
-            setLoading(false)
-        });
-    }, [])
 
-    // useEffect(() => {
-    //     const path = window.location.pathname
-    //     if (user) {
-    //         if (path === '/register' || path === "/login") {
-    //             navigate('/')
-    //         }
-    //     } else {
-    //         if (path === '/' || path === '/post') {
-    //             navigate('/login')
-    //         }
-    //     }
-    // }, [window.location.pathname, user])
+    useEffect(() => {
+      const checkAuthentication = async () => {
+        try {
+          onAuthStateChanged(auth, (user) => {
+            setUser(user);
+            setLoading(false);
+  
+            if (user) {
+              navigate("/product");
+              return;
+            } else {
+              navigate("/");
+              return;
+            }
+          });
+        } catch (error) {
+          console.error("Error checking authentication:", error);
+        }
+      };
+  
+      checkAuthentication();
+    }, [user]);
+  
+
 
     if (loading) return <div>Loading...</div>
 

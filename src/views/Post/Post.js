@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { setDoc, doc, } from "firebase/firestore";
 import { db } from "../../Config/firebase/DB";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
 import { auth } from "../../Config/firebase/DB";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +14,8 @@ const PostPage = () => {
   const [discount, setDiscount] = useState("");
   const [file, setFile] = useState(null);
   const [selectedFile, setSelectedFile] = useState([]);
+  const [location, setLocation] = useState('')
+  const [contact, setContact] = useState('')
 
   const storage = getStorage();
   const navigate = useNavigate()
@@ -22,7 +23,7 @@ const PostPage = () => {
 
   const user = auth.currentUser;
   if (!user) {
-    
+
     return <div>loading</div>;
   }
   const userUid = user.uid;
@@ -38,15 +39,20 @@ const PostPage = () => {
     e.preventDefault();
     try {
       const urls = [];
-      if (!selectedFile) return;
+      if (!productTitle || !category || !price || !selectedFile.length) {
+        alert("Please fill in all required fields and choose at least one file.");
+        return;
+      }
       await Promise.all(
         selectedFile.map(async (item) => {
           const storageRef = ref(storage, `images/${item.name}`);
           const snapshot = await uploadBytes(storageRef, item);
           const url = await getDownloadURL(snapshot.ref);
           urls.push(url);
+
         })
       );
+      console.log(urls)
       const userID = userUid + Date.now();
       await setDoc(doc(db, "Post", userID), {
         Title: productTitle,
@@ -81,25 +87,39 @@ const PostPage = () => {
           <input
             type="text"
             id="productTitle"
+            placeholder="something@"
             value={productTitle}
             onChange={(e) => setProductTitle(e.target.value)}
+            required
           />
         </div>
         <div>
           <label htmlFor="category">Category:</label>
-          <input
-            type="text"
+          <select
             id="category"
-            value={category}
+            value={category || 'car'}
             onChange={(e) => setCategory(e.target.value)}
-          />
+            
+          >
+            <option  value="car">Vehicle</option>
+            <option value="bike">Bike</option>
+            <option value="cloth">Cloth</option>
+            <option value="property">Property</option>
+            <option value="mobile">Mobile</option>
+            <option value="other">Other</option>
+
+          </select>
         </div>
         <div>
           <label htmlFor="description">Description:</label>
           <textarea
             id="description"
+            placeholder="Write about your product"
             value={description}
+            rows={6}
+            cols={50}
             onChange={(e) => setDescription(e.target.value)}
+            required
           />
         </div>
         <div>
@@ -107,21 +127,45 @@ const PostPage = () => {
           <input
             type="text"
             id="price"
+            placeholder="100"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            required
           />
         </div>
         <div>
-          <label htmlFor="price">Discount:</label>
+          <label htmlFor="discount">Discount: (%)</label>
           <input
             type="text"
             id="discount"
+            placeholder="Optional"
             value={discount}
             onChange={(e) => setDiscount(e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor="file">Choose File:</label>
+          <label htmlFor="location">Location:</label>
+          <input
+            type="text"
+            id="location"
+            placeholder="Karachi, pakistan"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="contact">Contact:</label>
+          <input
+            type="number"
+            id="contact"
+            pattern="[0-9]{11}"
+            placeholder="03123456789"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="file">Choose Multiple Files:</label>
           <input
             type="file"
             id="file"

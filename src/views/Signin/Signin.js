@@ -14,7 +14,6 @@ function Signin() {
       const userinfo = { email, password };
       await signinFirebase(email,password);
       alert("Signin");
-      navigate("./product");
     } catch (error) {
       alert(error.message)
       console.error("Error signing up:", error.message);
@@ -57,6 +56,9 @@ function Signin() {
           <p>
             Create a new account? <a style={{cursor: 'pointer'}} onClick={()=> navigate('/signup')}>Sign up</a>
           </p>
+          <p style={{cursor: 'pointer'}}
+          onClick={()=>{navigate('/forgot-password')}}
+          >forgot password?</p>
         </div>
       </div>
    
