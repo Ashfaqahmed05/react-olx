@@ -27,20 +27,26 @@ function Navbar({ user }) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
               
             <form
-              className="d-flex"
+              className="location-form d-flex"
               role="search"
             >
+              <div className="icon1">
+              <box-icon name='search'></box-icon>
+              </div>
               <input
+              
                 className="search form-control me-2"
                 type="search"
                 placeholder="Pakistan"
                 aria-label="Search"
                 
               />
-           
             </form>
-            <form className="d-flex" role="search">
+            <form className="search-form d-flex" role="search">
       <input className="form-control me-2" type="search" placeholder="Cars,mobiles,etc.." aria-label="Search"/>
+      <div className="icon">
+              <box-icon name='search'></box-icon>
+              </div>
     </form>
 
     <div className="user d-flex">

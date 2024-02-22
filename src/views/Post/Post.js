@@ -5,8 +5,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { auth } from "../../Config/firebase/DB";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-import Map from "../../components/Map";
-
+import MyMap from "../../components/Map";
 const PostPage = () => {
   const [productTitle, setProductTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -158,7 +157,7 @@ const PostPage = () => {
           />
         </div>
 
-        <Map/>
+        <MyMap/>
         
         <div>
 
