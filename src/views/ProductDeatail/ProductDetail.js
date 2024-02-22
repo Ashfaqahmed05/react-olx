@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { db, doc, getDoc } from "../../Config/firebase/DB";
+import { useDispatch } from 'react-redux';
 import './style.css';
+import { updateCart } from '../../Config/Store/cartSlice';
 
 const ProductDetail = () => {
+  const dispatch = useDispatch()
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -25,15 +28,17 @@ const ProductDetail = () => {
 
     fetchProductData();
   }, [id]);
+  function addtocart() {
+    dispatch(updateCart(product))
+    alert('Added')
+  }
 
   return (
-    <div className="product-detail-container">
+    <div className="detailContainer">
       {product ? (
         <>
-
-
           <div className="product-image">
-            <div id="carouselExampleIndicators" class="carousel slide">
+            <div id="carouselExampleIndicators" className="carousel slide">
               <div className="carousel-indicators">
                 {product.FileURL.map((url, index) => (
                   <button key={index} type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={index === 0 ? 'active' : ''} aria-label={`Slide ${index + 1}`}>
@@ -48,19 +53,25 @@ const ProductDetail = () => {
                   </div>
                 ))}
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+              <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+              <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Next</span>
               </button>
             </div>
 
           </div>
           <div className="product-details">
-            <h1>{product.Title}</h1>
+            <div>
+              <h1>{product.Title}</h1>
+              <div className="cartImgDiv" onClick={addtocart}>
+                <box-icon type='solid' name='cart-add'></box-icon>
+              </div>
+            </div>
+
             <p className="price">Price: ${product.Price}</p>
             <p className="description">{product.Description}</p>
 

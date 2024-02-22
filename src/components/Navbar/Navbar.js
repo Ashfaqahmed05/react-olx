@@ -35,6 +35,7 @@ function Navbar({ user }) {
                 type="search"
                 placeholder="Pakistan"
                 aria-label="Search"
+                
               />
            
             </form>
@@ -46,6 +47,10 @@ function Navbar({ user }) {
         <h5 className="email"
         onClick={()=>{navigate(`/profile/${user.uid}`)}}
         >{user.email}</h5>
+        <div className="cartItems" 
+        onClick={()=>{navigate('/cartItems')}}>
+        <box-icon type='solid' name='cart'></box-icon>
+        </div>
         <button className="sellbtn" 
         onClick={()=>{navigate('/post')}}>
             sell

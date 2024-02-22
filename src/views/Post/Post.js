@@ -5,6 +5,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { auth } from "../../Config/firebase/DB";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import Map from "../../components/Map";
 
 const PostPage = () => {
   const [productTitle, setProductTitle] = useState("");
@@ -65,22 +66,25 @@ const PostPage = () => {
       });
 
       alert("Your post with file added!");
+      setProductTitle('');
+      setCategory('');
+      setDescription('');
+      setPrice('');
+      setFile(null);
       navigate('/product')
+
     } catch (error) {
       console.error(error);
       alert("Error adding post with file");
     }
 
-    setProductTitle('');
-    setCategory('');
-    setDescription('');
-    setPrice('');
-    setFile(null);
+   
   };
 
   return (
     <div>
       <h1 className="postHeading">Post Page</h1>
+    
       <form className="postContainer">
         <div>
           <label htmlFor="productTitle">Product Title:</label>
@@ -153,7 +157,11 @@ const PostPage = () => {
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
+
+        <Map/>
+        
         <div>
+
           <label htmlFor="contact">Contact:</label>
           <input
             type="number"

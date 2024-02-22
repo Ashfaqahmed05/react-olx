@@ -1,5 +1,5 @@
 .navbar{
-  height: 80px;
+  /* height: 80px; */
 }
 
 .logo{
@@ -20,4 +20,10 @@ button{
 .navbarSupportedContent{
   display: flex;
   justify-content: left;
+}
+.cartItems:hover{
+    padding: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(197, 197, 197);
 }

@@ -4,6 +4,7 @@ import ProductPage from "../views/Main/Product";
 import Productdetail from "../views/ProductDeatail/ProductDetail";
 import Signup from "../views/Signup/Signup";
 import Signin from "../views/Signin/Signin";
+import Cart from "../views/CartPage/Cart";
 import Post from "../views/Post/Post"
 import Header from "../components/Header/Header";
 import Navbar from "../components/Navbar/Navbar";
@@ -36,6 +37,11 @@ import ErrorBoundary from "./Error";
         {
           path: "/product",
           element: <ProductPage />,
+
+        },
+        {
+          path: "/cartItems",
+          element: <Cart />,
 
         },
         {

@@ -1,8 +1,9 @@
 .footer {
-    background-color: #333; /* Dark background color for the footer */
+    background-color: #333; 
     color: white;
     padding: 20px 0;
     text-align: center;
+    width: 100%;
     
   }
   .footerImages{
@@ -12,6 +13,9 @@
   .footer p {
     margin: 0;
 
+  }
+  .footertop div{
+    padding: 0px;
   }
   .footertop{
     padding: 30px 0px;
@@ -36,4 +40,7 @@
   
   .footer a:hover {
     text-decoration: underline;
+  }
+  .follow{
+    max-width: 300px;
   }
