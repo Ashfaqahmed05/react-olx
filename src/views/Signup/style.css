@@ -18,6 +18,11 @@ body {
     margin-bottom: 5%;
   }
 
+  @media screen and (max-width: 480px) {
+    .signup-container {
+      width: 90%;
+    }
+  }
   .signup-container h2 {
     color: #333333;
   }
