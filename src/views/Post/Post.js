@@ -6,6 +6,8 @@ import { auth } from "../../Config/firebase/DB";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 import MyMap from "../../components/Map";
+import toast from "react-hot-toast";
+
 const PostPage = () => {
   const [productTitle, setProductTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -17,6 +19,7 @@ const PostPage = () => {
   const [location, setLocation] = useState('')
   const [contact, setContact] = useState('')
 
+  console.log(category)
   const storage = getStorage();
   const navigate = useNavigate()
 
@@ -29,8 +32,6 @@ const PostPage = () => {
   const userUid = user.uid;
 
   const handleFileChange = (e) => {
-    console.log(e.target.files);
-
     const selectedFiles = Array.from(e.target.files);
     setSelectedFile(selectedFiles);
   };
@@ -40,7 +41,7 @@ const PostPage = () => {
     try {
       const urls = [];
       if (!productTitle || !category || !price || !selectedFile.length) {
-        alert("Please fill in all required fields and choose at least one file.");
+        toast.error("Please fill in all required fields and choose at least one file.");
         return;
       }
       await Promise.all(
@@ -52,7 +53,6 @@ const PostPage = () => {
 
         })
       );
-      console.log(urls)
       const userID = userUid + Date.now();
       await setDoc(doc(db, "Post", userID), {
         Title: productTitle,
@@ -63,8 +63,8 @@ const PostPage = () => {
         FileURL: urls,
         UserId: userID,
       });
-
-      alert("Your post with file added!");
+      
+      toast.success("Your post with file added!");
       setProductTitle('');
       setCategory('');
       setDescription('');
@@ -74,7 +74,7 @@ const PostPage = () => {
 
     } catch (error) {
       console.error(error);
-      alert("Error adding post with file");
+      toast.error("Error adding post with file");
     }
 
    
@@ -100,8 +100,8 @@ const PostPage = () => {
           <label htmlFor="category">Category:</label>
           <select
             id="category"
-            value={category || 'car'}
-            onChange={(e) => setCategory(e.target.value)}
+            value={category}
+            onChange={(e) => setCategory(e.target.value ||  "car")}
             
           >
             <option  value="car">Vehicle</option>

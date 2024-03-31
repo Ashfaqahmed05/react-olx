@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signinFirebase } from "../../Config/firebase/DB";
+import toast from "react-hot-toast";
 
 function Signin() {
   const navigate = useNavigate();
@@ -13,10 +14,10 @@ function Signin() {
     try {
       const userinfo = { email, password };
       await signinFirebase(email,password);
-      alert("Signin");
+      toast.success("Sign in successfully!");
     } catch (error) {
-      alert(error.message)
-      console.error("Error signing up:", error.message);
+      toast.error(error.message);
+      console.log(error.message);
     }
   };
 

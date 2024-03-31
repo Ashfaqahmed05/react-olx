@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignupFirebase } from "../../Config/firebase/DB";
+import toast from "react-hot-toast";
 import './style.css'
+
 function Signup() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -13,10 +15,10 @@ function Signup() {
     try {
       const userinfo = { username,  email, password };
       await SignupFirebase(userinfo);
-      alert("Congratulations, You are Registered!");
+      toast.success("Congratulations, You are Registered!");
     } catch (error) {
       console.error("Error signing up:", error.message);
-      alert(error.message)
+      toast.error(error.message)
     }
   };
 

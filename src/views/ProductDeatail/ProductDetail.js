@@ -29,9 +29,13 @@ const ProductDetail = () => {
     fetchProductData();
   }, [id]);
   function addtocart() {
-    dispatch(updateCart(product))
-    alert('Added')
+    if (product) {
+      const { id, Title, Price } = product;
+      dispatch(updateCart({ id, title: Title, price: Price }));
+      alert('Added');
+    }
   }
+  
 
   return (
     <div className="detailContainer">
@@ -67,7 +71,7 @@ const ProductDetail = () => {
           <div className="product-details">
             <div>
               <h1>{product.Title}</h1>
-              <div className="cartImgDiv" onClick={addtocart}>
+              <div className="cartImgDiv" onClick={() => addtocart(product.title)}>
                 <box-icon type='solid' name='cart-add'></box-icon>
               </div>
             </div>

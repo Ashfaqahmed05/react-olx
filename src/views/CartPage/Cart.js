@@ -28,7 +28,7 @@ function Cart() {
               <div className="card-last">
                 <h6 style={{ textTransform: 'capitalize' }}>{item.category}</h6>
               </div>
-              <button onClick={() => dispatch(removeFromCart(item))}>delete</button>
+              <button onClick={() => dispatch(removeFromCart(item.Title))}>delete</button>
             </div>
           </div>
         ))

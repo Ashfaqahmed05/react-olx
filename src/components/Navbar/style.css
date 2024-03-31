@@ -62,3 +62,8 @@ button{
   display: flex;
   align-items: center;
 }
+.profile-pic{
+  width: 35px !important;
+  height: 35px !important;
+  border-radius: 50%;
+}

@@ -15,7 +15,7 @@ import {
   query,
   where
 } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes, } from "firebase/storage";
 const firebaseConfig = {
     apiKey: "AIzaSyBqZTZ-zGYy_RyrrpINIZyORoaooonV-t0",
     authDomain: "olx-react-9be0c.firebaseapp.com",
@@ -41,8 +41,8 @@ function signinFirebase(loginEmail, loginPassword) {
 }
 const addUserToDB = async (uid, username, email) => {
   const userProfile = {
-    username: username,
-    email: email,
+    username: username.toLowerCase(),
+    email: email.toLowerCase(),
   };
 
   return setDoc(doc(db, "users", uid), userProfile);
