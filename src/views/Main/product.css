@@ -64,7 +64,6 @@
     width: 60px !important;
 }
 .collapse{
-    max-width: 80% !important;
     justify-content: space-around !important;
 }
 .card-text{
@@ -80,4 +79,11 @@
 .card-last{
     display: flex;
     justify-content: space-between;
+}
+
+@media(max-width:992px){
+
+    .collapse{
+        width:  100% !important;
+    }
 }

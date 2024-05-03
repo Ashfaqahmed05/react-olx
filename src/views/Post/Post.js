@@ -5,12 +5,11 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { auth } from "../../Config/firebase/DB";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-import MyMap from "../../components/Map";
 import toast from "react-hot-toast";
 
 const PostPage = () => {
   const [productTitle, setProductTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('' || 'others');
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
@@ -19,7 +18,6 @@ const PostPage = () => {
   const [location, setLocation] = useState('')
   const [contact, setContact] = useState('')
 
-  console.log(category)
   const storage = getStorage();
   const navigate = useNavigate()
 
@@ -40,7 +38,7 @@ const PostPage = () => {
     e.preventDefault();
     try {
       const urls = [];
-      if (!productTitle || !category || !price || !selectedFile.length) {
+      if (!productTitle || !price || !selectedFile.length) {
         toast.error("Please fill in all required fields and choose at least one file.");
         return;
       }
@@ -53,17 +51,18 @@ const PostPage = () => {
 
         })
       );
-      const userID = userUid + Date.now();
-      await setDoc(doc(db, "Post", userID), {
+      const productId = userUid + Date.now();
+      await setDoc(doc(db, "Post", productId), {
         Title: productTitle,
         category: category,
         Description: description,
         Price: price,
         Discount: discount,
         FileURL: urls,
-        UserId: userID,
+        Product_ID: productId,
+        User_ID: userUid,
       });
-      
+
       toast.success("Your post with file added!");
       setProductTitle('');
       setCategory('');
@@ -77,47 +76,48 @@ const PostPage = () => {
       toast.error("Error adding post with file");
     }
 
-   
+
   };
 
+  console.log(category)
   return (
     <div>
       <h1 className="postHeading">Post Page</h1>
-    
-      <form className="postContainer">
-        <div>
-          <label htmlFor="productTitle">Product Title:</label>
+
+      <form className="postContainer" onSubmit={handlePostClick}>
+        <div className="input-container">
           <input
             type="text"
             id="productTitle"
-            placeholder="something@"
+            maxLength={40}
+            placeholder="Product Title"
             value={productTitle}
             onChange={(e) => setProductTitle(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="category">Category:</label>
+
+        <div className="input-container">
+          <label htmlFor="category"> Category: 
           <select
             id="category"
             value={category}
-            onChange={(e) => setCategory(e.target.value ||  "car")}
-            
+            onChange={(e) => setCategory(e.target.value)}
           >
-            <option  value="car">Vehicle</option>
+            <option value="other">Other</option>
+            <option value="car">Vehicle</option>
             <option value="bike">Bike</option>
             <option value="cloth">Cloth</option>
             <option value="property">Property</option>
             <option value="mobile">Mobile</option>
-            <option value="other">Other</option>
-
           </select>
+          </label>
         </div>
-        <div>
-          <label htmlFor="description">Description:</label>
+
+        <div className="input-container">
           <textarea
             id="description"
-            placeholder="Write about your product"
+            placeholder="Description"
             value={description}
             rows={6}
             cols={50}
@@ -125,64 +125,77 @@ const PostPage = () => {
             required
           />
         </div>
-        <div>
-          <label htmlFor="price">Price:</label>
+
+        <div className="input-container">
           <input
-            type="text"
+            type="tel"
+            maxLength={7}
             id="price"
-            placeholder="100"
+            placeholder="Price"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => {
+              const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+              setPrice(onlyNumbers);
+            }}
             required
           />
         </div>
-        <div>
-          <label htmlFor="discount">Discount: (%)</label>
+
+        <div className="input-container">
           <input
-            type="text"
+            type="tel"
             id="discount"
-            placeholder="Optional"
+            maxLength={2}
+            placeholder="Discount"
             value={discount}
-            onChange={(e) => setDiscount(e.target.value)}
+            onChange={(e) => {
+              const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+              setDiscount(onlyNumbers);
+            }}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="location">Location:</label>
+
+        <div className="input-container">
           <input
             type="text"
             id="location"
-            placeholder="Karachi, pakistan"
+            placeholder="Location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
+            required
           />
         </div>
 
-        <MyMap/>
-        
-        <div>
-
-          <label htmlFor="contact">Contact:</label>
+        <div className="input-container">
           <input
-            type="number"
+            type="text"
             id="contact"
-            pattern="[0-9]{11}"
-            placeholder="03123456789"
+            maxLength={11}
+            minLength={11}
+            placeholder="Contact"
             value={contact}
-            onChange={(e) => setContact(e.target.value)}
+            onChange={(e) => {
+              const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+              setContact(onlyNumbers);
+            }}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="file">Choose Multiple Files:</label>
+
+        <div className="input-container">
           <input
             type="file"
             id="file"
             accept=".jpg, .jpeg, .png"
             multiple
             onChange={handleFileChange}
+            required
           />
         </div>
+
         <div>
-          <button type="button" onClick={handlePostClick}>
+          <button type="submit" >
             Post
           </button>
         </div>

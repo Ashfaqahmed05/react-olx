@@ -4,6 +4,7 @@ import { db, doc, getDoc } from "../../Config/firebase/DB";
 import { useDispatch } from 'react-redux';
 import './style.css';
 import { updateCart } from '../../Config/Store/cartSlice';
+import toast from 'react-hot-toast';
 
 const ProductDetail = () => {
   const dispatch = useDispatch()
@@ -28,13 +29,13 @@ const ProductDetail = () => {
 
     fetchProductData();
   }, [id]);
-  function addtocart() {
-    if (product) {
-      const { id, Title, Price } = product;
-      dispatch(updateCart({ id, title: Title, price: Price }));
-      alert('Added');
+  const addtocart=(cartproduct)=> {
+    if (cartproduct) {
+      dispatch(updateCart(cartproduct));
+      toast.success('Item added!');
     }
   }
+  
   
 
   return (
@@ -71,7 +72,7 @@ const ProductDetail = () => {
           <div className="product-details">
             <div>
               <h1>{product.Title}</h1>
-              <div className="cartImgDiv" onClick={() => addtocart(product.title)}>
+              <div className="cartImgDiv" onClick={() => addtocart(product)}>
                 <box-icon type='solid' name='cart-add'></box-icon>
               </div>
             </div>

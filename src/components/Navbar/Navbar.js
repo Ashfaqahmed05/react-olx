@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../Config/firebase/DB";
-import { doc, getDocs, db, collection, query, where } from "../../Config/firebase/DB";
-
-import "./style.css";
-
+import { collection, db, getDocs, logout, query, where } from "../../Config/firebase/DB";
+import "./navbar.css";
+import "./navbar.css";
 function Navbar({ user }) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
@@ -70,7 +68,7 @@ function Navbar({ user }) {
             </form>
             <form className="search-form d-flex" role="search">
               <input className="form-control me-2" type="search" placeholder="Cars,mobiles,etc.." aria-label="Search" />
-              <div className="icon">
+              <div className="icon2">
                 <box-icon name='search'></box-icon>
               </div>
             </form>
@@ -88,6 +86,10 @@ function Navbar({ user }) {
                 onClick={() => { navigate('/cartItems') }}>
                 <box-icon type='solid' name='cart'></box-icon>
               </div>
+              <div className="cartItems"
+                onClick={() => { navigate('/orders') }}>
+                            <box-icon name='notepad' ></box-icon>
+              </div>
               <button className="sellbtn"
                 onClick={() => { navigate('/post') }}>
                 sell
@@ -97,7 +99,6 @@ function Navbar({ user }) {
                 logout
               </button>
             </div>
-
           </div>
         </div>
       </nav>

@@ -1,11 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../Config/Store/cartSlice";
+import { useNavigate } from "react-router-dom";
 import "./style.css"
 
 function Cart() {
   const items = useSelector(state => state.cart);
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   return (
     <>
@@ -28,7 +30,8 @@ function Cart() {
               <div className="card-last">
                 <h6 style={{ textTransform: 'capitalize' }}>{item.category}</h6>
               </div>
-              <button onClick={() => dispatch(removeFromCart(item.Title))}>delete</button>
+              <button onClick={()=> navigate(`/buy/${item.Product_ID}`)}>Buy</button>
+              <button onClick={() => dispatch(removeFromCart(item.Product_ID))}>delete</button>
             </div>
           </div>
         ))

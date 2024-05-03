@@ -1,5 +1,11 @@
 .card{
     cursor: pointer;
+    position: relative;
+    width: 300px;
+
+}
+.card:hover{
+    background-color: rgba(236, 236, 236, 0.651);
 }
 .card-text{
     height: 30px;
@@ -8,4 +14,17 @@
     overflow: hidden;
     
     text-overflow: ellipsis;
+}
+.icon{
+    
+    background-color: rgba(209, 206, 206, 0.568);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40%;
+}
+.icon:hover{
+    background-color:  rgba(209, 206, 206, 0.842);
 }

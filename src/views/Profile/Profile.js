@@ -5,6 +5,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../Config/firebase/DB';
 import './style.css';
 import toast from 'react-hot-toast';
+import { useNavigate} from 'react-router-dom'
 
 export function Profile({ user }) {
   const { id } = useParams();
@@ -14,6 +15,8 @@ export function Profile({ user }) {
   const [bio, setBio] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null);
+
+  const navigate= useNavigate()
 
   useEffect(() => {
     fetchingUser();
@@ -67,7 +70,6 @@ export function Profile({ user }) {
     }
   }
 
-
   
 
   return (
@@ -77,6 +79,12 @@ export function Profile({ user }) {
         <div className="user-details">
           <div className='profile-div'>
             <img className='profile-img' src={profilePic? profilePic :"https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg"} alt="checking" />
+            
+            <button 
+            className='myProduct-btn'
+            onClick={()=> navigate(`/myproducts/${id}`)}>
+              My Products
+            </button>
           </div>
           <p>
             <strong>Name:</strong> {profile?.username}
@@ -85,14 +93,18 @@ export function Profile({ user }) {
             <strong>Email:</strong> {profile?.email}
           </p>
           <form onSubmit={handleSubmit}>
+            <label htmlFor="phone">Contact: </label>
             <input
               type="text"
+              name='phone'
               placeholder="Phone"
               value={phone}
               onChange={(e) => handlePhoneChange(e.target.value)}
             />
+            <label htmlFor="bio">Bio: </label>
             <textarea
               placeholder="Write a bio"
+              name='bio'
               value={bio}
               onChange={(e) => handleBioChange(e.target.value)}
             ></textarea>

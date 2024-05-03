@@ -1,0 +1,98 @@
+
+
+.logo{
+  width: 60px;
+  height: 35px;
+}
+.user{
+  display: flex;
+  align-items: center;
+}
+.email{
+  font-size: 15px;
+}
+button{
+  margin: 5px;
+}
+
+.navbarSupportedContent{
+  display: flex;
+  justify-content: left;
+}
+
+.cartItems{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+}
+.cartItems:hover{
+    padding: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(197, 197, 197);
+}
+.location-form{
+  background-color: white;
+  border: 1px solid green;
+  width: 200px;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+.location-form input{
+  border: none;
+}
+
+.icon1{
+  display: flex;
+  align-items: center;
+}
+.icon1 box-icon{
+  width: 20px;
+  height: 20px;
+}
+
+.search-form{
+  margin: 0px 10px;
+  width: 350px;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid green;
+  
+}
+.search-form input{
+  border: none;
+}
+.icon2{
+  display: flex;
+  align-items: center;
+}
+.profile-pic{
+  width: 35px !important;
+  height: 35px !important;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.profile-pic:hover{
+  opacity: 50%;
+  background-color: darkgray;
+}
+
+@media (max-width: 1000px){
+
+  .navbar-toggler{
+    width: 150px;
+  }
+  .collapse{
+    width: 100% !important;
+  }
+  .location-form{
+    width: 95%;
+  }
+  .search-form{
+    width: 95%;
+    margin: 0px;
+    margin-top: 5px;
+  }
+}

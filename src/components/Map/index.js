@@ -27,7 +27,7 @@ export default function MyMap() {
     };
   }, []);
 
-console.log(location)
+// console.log(location)
   return (
     <div className="map-wrap">
 
