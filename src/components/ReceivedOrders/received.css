@@ -1,0 +1,19 @@
+.btnDiv  button{
+
+    width: 100px;
+}
+
+.orderDiv {
+    cursor: pointer;    
+  }
+  .orderDiv:hover {
+    background-color: #f5f5f5;
+  }
+  
+.mainDiv{
+    height: 100%;
+    overflow: scroll;
+}
+.mainDiv::-webkit-scrollbar {
+    display: none;
+  }

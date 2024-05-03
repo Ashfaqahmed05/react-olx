@@ -37,11 +37,16 @@ function ProductPage() {
     }
   };
    if (!products.length && !categoryNotFound) {
-    return <div className="loader"></div>;
+    return (
+      <div className="loadingDiv">
+        <div className="loader"></div>
+
+      </div>
+  );
   }
 
   return (
-    <div className="main container">
+    <div className="main container" >
       <Slider />
       <div>
         <hr />

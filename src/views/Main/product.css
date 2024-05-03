@@ -19,6 +19,13 @@
   @keyframes l21{
     100%{background-position: left}
   }
+.loadingDiv{
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .mainHead{
     width: 100%;
     height: 100%;

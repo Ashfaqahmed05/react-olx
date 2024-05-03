@@ -58,6 +58,7 @@ const PostPage = () => {
         Description: description,
         Price: price,
         Discount: discount,
+        Contact: contact,
         FileURL: urls,
         Product_ID: productId,
         User_ID: userUid,
@@ -79,7 +80,6 @@ const PostPage = () => {
 
   };
 
-  console.log(category)
   return (
     <div>
       <h1 className="postHeading">Post Page</h1>

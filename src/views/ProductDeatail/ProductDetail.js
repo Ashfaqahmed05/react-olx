@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { db, doc, getDoc } from "../../Config/firebase/DB";
+import { auth } from '../../Config/firebase/DB';
 import { useDispatch } from 'react-redux';
 import './style.css';
 import { updateCart } from '../../Config/Store/cartSlice';
@@ -10,6 +11,10 @@ const ProductDetail = () => {
   const dispatch = useDispatch()
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+
+  const currentUserId = auth.lastNotifiedUid
+
+  const myProduct = currentUserId === product?.User_ID
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -29,14 +34,14 @@ const ProductDetail = () => {
 
     fetchProductData();
   }, [id]);
-  const addtocart=(cartproduct)=> {
+  const addtocart = (cartproduct) => {
     if (cartproduct) {
       dispatch(updateCart(cartproduct));
       toast.success('Item added!');
     }
   }
-  
-  
+
+
 
   return (
     <div className="detailContainer">
@@ -72,9 +77,11 @@ const ProductDetail = () => {
           <div className="product-details">
             <div>
               <h1>{product.Title}</h1>
-              <div className="cartImgDiv" onClick={() => addtocart(product)}>
-                <box-icon type='solid' name='cart-add'></box-icon>
-              </div>
+              {!myProduct && (
+                <div className="cartImgDiv" onClick={() => addtocart(product)}>
+                  <box-icon type='solid' name='cart-add'></box-icon>
+                </div>
+              )}
             </div>
 
             <p className="price">Price: ${product.Price}</p>

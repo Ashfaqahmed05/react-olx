@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { updateCart } from "../../Config/Store/cartSlice";
+import { auth } from "../../Config/firebase/DB";
 import toast from "react-hot-toast";
-
 
 import "./style.css"
 
@@ -11,13 +11,17 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
-  const addtocart = ( cartproduct) => {
+  const currentUserId = auth.lastNotifiedUid
 
+  const myProduct = currentUserId === product.User_ID
+
+  const addtocart = (cartproduct) => {
     if (cartproduct) {
       dispatch(updateCart(cartproduct));
       toast.success('Item added!');
     }
   }
+
   return (
     <>
       <div
@@ -33,9 +37,12 @@ const ProductCard = ({ product }) => {
         <div className="card-body">
           <div className="head d-flex justify-content-between">
             <h5 className="card-title">Rs.{product.Price}</h5>
-            <div className="icon" onClick={(event) => addtocart( product)}>
-              <box-icon type='solid' name='cart-add'></box-icon>
-            </div>
+            {/* Conditionally render the "Add to Cart" button */}
+            {!myProduct && (
+              <div className="icon" onClick={() => addtocart(product)}>
+                <box-icon type='solid' name='cart-add'></box-icon>
+              </div>
+            )}
           </div>
           {product.Discount && (
             <p className="discount">{product.Discount}% OFF</p>

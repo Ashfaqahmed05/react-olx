@@ -54,13 +54,13 @@ function Layout() {
           setUser(user);
           setLoading(false);
 
-          // if (user) {
-          //   navigate("/product");
-          //   return;
-          // } else {
-          //   navigate("/");
-          //   return;
-          // }
+          if (user) {
+            navigate("/product");
+            return;
+          } else {
+            navigate("/");
+            return;
+          }
         });
       } catch (error) {
         console.error("Error checking authentication:", error);
@@ -77,8 +77,7 @@ function Layout() {
   return <div className="main" style={{ height: 100 }}>
     <Header />
     {user ? <>
-
-      <Navbar user={user} />
+        <Navbar user={user} />
     </> :
       <></>
     }

@@ -25,6 +25,7 @@ const BuyNow = () => {
 
     const { Title, Price, Discount, FileURL, Product_ID, User_ID } = selectedItem;
 
+
     const increaseItem = () => {
         const newQuantity = quantity + 1;
         setQuantity(newQuantity);
@@ -67,7 +68,7 @@ const BuyNow = () => {
                         <button onClick={decreaseItem} className='bton'>-</button>
                     </p>
                     <p>Total: {total} Rs</p>
-                    <p>Total after Discount: {discountedTotal} Rs</p>
+                    <p>Total after Discount: {parseFloat(discountedTotal).toFixed(0) } Rs</p>
 
                 </div>
                 <button onClick={handleBuyNow}>Buy Now</button>
@@ -106,7 +107,7 @@ const BuyModal = ({ title, price, quantity, discountedTotal, setShowModal, produ
             discountedTotal: discountedTotal,
             product_ID: productId,
             owner_ID: ownerId,
-            status: "pending",
+            status: "Pending",
             customerName: customerName,
             contact: contact,
             address: address,

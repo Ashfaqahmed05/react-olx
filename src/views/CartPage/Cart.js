@@ -31,7 +31,7 @@ function Cart() {
                 <h6 style={{ textTransform: 'capitalize' }}>{item.category}</h6>
               </div>
               <button onClick={()=> navigate(`/buy/${item.Product_ID}`)}>Buy</button>
-              <button onClick={() => dispatch(removeFromCart(item.Product_ID))}>delete</button>
+              <button onClick={() => dispatch(removeFromCart(item.Product_ID))}>Remove</button>
             </div>
           </div>
         ))

@@ -14,7 +14,7 @@ const Orders = () => {
     };
 
     return (
-        <div style={{ height: "80vh", overflow: "scroll"}}>
+        <div style={{ height: "80vh", }}>
             <div style={{ display: "flex" }}>
                 <button onClick={handleReceivedClick}>Received</button>
                 <button onClick={handleSentClick}>Sent</button>
