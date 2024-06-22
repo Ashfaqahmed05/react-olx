@@ -3,7 +3,7 @@ import { db } from "../../Config/firebase/DB"
 import { auth } from "../../Config/firebase/DB"
 import { useEffect, useState } from "react"
 import OrderDetailModal from "../OrderDetailModal/OrderDetailModal"
-import "./style.css"
+import "./sentOrder.css"
 
 const SentOrders = () => {
 
@@ -46,7 +46,7 @@ const SentOrders = () => {
 
 
   return (
-    <div>
+    <div className="mainDiv">
       {sentOrders.length === 0 && <div>No orders!</div>}
       {sentOrders.map((order) => (
         <div className="orderDiv" key={order.id} onClick={() => handleOrderClick(order)}>
@@ -54,12 +54,13 @@ const SentOrders = () => {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <h4>{order.title}</h4>
             <p>Price: {order.price} Rs</p>
-
+            <p>At: {order.orderAt}</p>
           </div>
           <div style={{ flexGrow: 1 }}></div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <p>Quantity: {order.quantity}</p>
             <p>Total: {order.price * order.discountedTotal} Rs</p>
+            
 
           </div>
           <p>Status: <span style={{ color: order.status === 'Accepted' ? 'green' : order.status === 'Declined' ? 'red' : 'black' }}

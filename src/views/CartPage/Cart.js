@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import "./style.css"
 
 function Cart() {
-  const items = useSelector(state => state.cart);
+  const items = useSelector(state => state?.cart?.cart);
+  console.log(useSelector(state => state?.cart))
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

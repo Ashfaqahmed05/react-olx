@@ -33,40 +33,49 @@ button{
     cursor: pointer;
     background-color: rgb(197, 197, 197);
 }
-.location-form{
-  background-color: white;
-  border: 1px solid green;
-  width: 200px;
-  border-radius: 5px;
-  padding: 0px 10px;
-}
-.location-form input{
-  border: none;
+
+.red-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
 }
 
-.icon1{
-  display: flex;
-  align-items: center;
-}
-.icon1 box-icon{
-  width: 20px;
-  height: 20px;
-}
 
-.search-form{
+
+
+.search-form {
   margin: 0px 10px;
-  width: 350px;
+  width: 550px;
   border-radius: 5px;
   background-color: white;
   border: 1px solid green;
-  
 }
-.search-form input{
+
+.search-form input:focus {
+  border: 2px solid green;
+}
+
+.search{
   border: none;
+  margin: 0px !important;
+}
+.search:focus{
+  outline: none;
 }
 .icon2{
   display: flex;
   align-items: center;
+  justify-content: center;
+  background-color: rgb(214, 214, 214);
+  width: 50px;
+  cursor: pointer;
+}
+.icon2:hover{
+  background-color: rgb(194, 194, 194);
 }
 .profile-pic{
   width: 35px !important;

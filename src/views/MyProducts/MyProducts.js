@@ -9,7 +9,6 @@ export function MyProducts() {
     const [products, setProducts] = useState([]);
     const { id } = useParams();
 
-
     useEffect(() => {
         let unsubscribe;
         const fetchProducts = async () => {
@@ -37,34 +36,38 @@ export function MyProducts() {
         };
     }, [id]);
 
-    if (!products.length) {
-        return <div>Your items not found</div>;
-    }
+    
 
     return (
         <div className="container d-flex flex-wrap">
-            {products.map((product, index) => (
-                <div key={index} className="card m-2" style={{ width: '300px', position: 'relative' }}>
-                    <img
-                        className="card-img-top"
-                        style={{ height: '200px' }}
-                        src={product.FileURL[0]}
-                        alt={product.Title}
-                    />
-                    <div className="card-body">
-                        <h5 className="card-title">Rs. {product.Price}</h5>
-                        {product.Discount && <p className="discount">{product.Discount}% OFF</p>}
-                        <p className="card-text">{product.Description}</p>
-                        <div className="card-last">
-                            <h6 style={{ textTransform: 'capitalize' }}>{product.category}</h6>
-                        </div>
-
-                        <EditProduct product={product} />
-
-                        <DeleteProduct product={product} />
-                    </div>
+            {products.length === 0 ? (
+                <div style={{ height: '70vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    Your items not found
                 </div>
-            ))}
+            ) : (
+                products.map((product, index) => (
+                    <div key={index} className="card m-2" style={{ width: '300px', position: 'relative' }}>
+                        {product.FileURL && product.FileURL[0] && (
+                            <img
+                                className="card-img-top"
+                                style={{ height: '200px' }}
+                                src={product.FileURL[0]}
+                                alt={product.Title}
+                            />
+                        )}
+                        <div className="card-body">
+                            <h5 className="card-title">Rs. {product.Price}</h5>
+                            {product.Discount && <p className="discount">{product.Discount}% OFF</p>}
+                            <p className="card-text">{product.Description}</p>
+                            <div className="card-last">
+                                <h6 style={{ textTransform: 'capitalize' }}>{product.category}</h6>
+                            </div>
+                            <EditProduct product={product} />
+                            <DeleteProduct product={product} />
+                        </div>
+                    </div>
+                ))
+            )}
         </div>
     );
 }

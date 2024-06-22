@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const OrderDetailModal = ({ order, onClose }) => {
 
-  const { customerName, contact, address, title, price, quantity, discountedTotal, status } = order;
+  const { customerName, contact, address, title, price, quantity, discountedTotal, status, orderAt } = order;
 
   return (
     <div className="modal fade show" style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }} tabIndex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
@@ -35,6 +35,9 @@ const OrderDetailModal = ({ order, onClose }) => {
               </div>
               <div className="mb-2">
                 <label htmlFor="Total" className="col-form-label">Total: <span style={{ fontWeight: 300 }}>{discountedTotal}</span></label>
+              </div>
+              <div className="mb-2">
+                <label htmlFor="Date" className="col-form-label">Order At: <span style={{ fontWeight: 300 }}>{orderAt}</span></label>
               </div>
               <div className="mb-3">
                 <label htmlFor="Status" className="col-form-label">Status: <span style={{ fontWeight: 300, color: status === 'Accepted' ? 'green' : status === 'Declined' ? 'red' : 'black' }}>{status}</span></label>

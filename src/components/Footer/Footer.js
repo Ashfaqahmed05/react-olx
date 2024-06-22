@@ -3,8 +3,8 @@ import './style.css';
 
 const Footer = () => {
   return (
-    <footer className='bg-light'>
-      <div className="footertop container-fluid">
+    <footer className='bg-light '>
+      <div className="footertop container">
             <div className='main row'>
                 <div className='popular col-6 col-sm-6 col-md-6 col-lg-3'>
                     <h5 className='footer-h5'>POPULAR CATEGORIES</h5>

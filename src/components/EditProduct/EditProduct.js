@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../Config/firebase/DB';
 import { uploadBytes, getDownloadURL, ref } from 'firebase/storage';
@@ -11,10 +11,10 @@ export function EditProduct({ product }) {
     const [price, setPrice] = useState(Price || '');
     const [description, setDescription] = useState(Description || '');
     const [images, setImages] = useState(null);
+    const modalRef = useRef();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         try {
             let imageUrl = null;
 
@@ -40,6 +40,9 @@ export function EditProduct({ product }) {
             setPrice('');
             setDescription('');
             setImages(null);
+            if (modalRef.current) {
+                modalRef.current.click();  // Close the modal
+            }
         } catch (error) {
             console.error('Error updating product:', error);
             toast.error('Error updating product. Please try again later.');
@@ -61,6 +64,7 @@ export function EditProduct({ product }) {
         setImages(file);
     };
 
+   
     return (
         <>
             <div>
@@ -73,7 +77,7 @@ export function EditProduct({ product }) {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h1 className="modal-title fs-5" id={`editProductModalLabel${Product_ID}`}>Edit Product</h1>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ref={modalRef}></button>
                             </div>
                             <div className="modal-body">
                                 <form onSubmit={handleSubmit}>

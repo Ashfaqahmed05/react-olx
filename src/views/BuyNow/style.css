@@ -1,14 +1,38 @@
-.maindiv{
-    height: 60vh;
+.maindiv {
+    min-height: 60vh;
     padding: 50px;
     display: flex;
-
-}
-.left{
-    width: 70%;
-
-}
-
+    flex-direction: column; /* Display items vertically */
+  }
+  
+  .left {
+    width: 100%; /* Occupy full width */
+    margin-bottom: 20px; /* Add some space between left and right content */
+  }
+  
+  .right {
+    width: 100%; /* Occupy full width */
+  }
+  
+  /* Media query for small screens */
+  @media (min-width: 768px) {
+    .maindiv {
+      flex-direction: row; /* Display items horizontally */
+    }
+    
+    .left {
+      width: 70%; /* Occupy 70% of the width */
+      margin-bottom: 0; /* Remove margin */
+      margin-right: 5%; /* Add some space between left and right content */
+    }
+  
+    .right {
+      width: 25%; /* Occupy 25% of the width */
+    }
+  }
+  
+  /* Adjust styles for better responsiveness as needed */
+  
 .productImg{
     height: 70px;
     width: 70px;

@@ -5,19 +5,21 @@ import { auth } from '../../Config/firebase/DB';
 import { useDispatch } from 'react-redux';
 import './style.css';
 import { updateCart } from '../../Config/Store/cartSlice';
+import Loader from '../../components/Loader/Loader';
 import toast from 'react-hot-toast';
 
 const ProductDetail = () => {
   const dispatch = useDispatch()
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false)
 
   const currentUserId = auth.lastNotifiedUid
-
   const myProduct = currentUserId === product?.User_ID
 
   useEffect(() => {
     const fetchProductData = async () => {
+      setLoading(true)
       try {
         const docRef = doc(db, 'Post', id);
         const docSnapshot = await getDoc(docRef);
@@ -33,7 +35,9 @@ const ProductDetail = () => {
     };
 
     fetchProductData();
+    setLoading(false)
   }, [id]);
+
   const addtocart = (cartproduct) => {
     if (cartproduct) {
       dispatch(updateCart(cartproduct));
@@ -42,6 +46,9 @@ const ProductDetail = () => {
   }
 
 
+  if(loading){
+    return <Loader />
+  }
 
   return (
     <div className="detailContainer">
@@ -90,7 +97,7 @@ const ProductDetail = () => {
           </div>
         </>
       ) : (
-        <p>Loading...</p>
+        <Loader />
       )}
     </div>
   );

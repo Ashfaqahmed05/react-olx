@@ -1,0 +1,80 @@
+.container h1 {
+    text-align: center;
+  }
+  
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .myProduct-btn {
+    width: 180px;
+    height: 50px;
+  }
+  
+  .profile-img {
+    height: 30vh;
+    width: 17vw;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto; /* Center the image horizontally */
+  }
+  
+  .camera-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    background-color: rgba(102, 96, 96, 0.363);
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .camera-icon box-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .profile-div {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .myProduct-btn {
+    margin-top: 10px;
+  }
+  
+  .user-details {
+    margin-top: 20px; /* Space between profile image and details */
+  }
+  
+  @media (max-width: 768px) {
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .user-details {
+      text-align: center;
+    }
+  
+    .profile-img {
+      width: 40vw; /* Adjust size for smaller screens */
+    }
+  
+    .top {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .camera-icon {
+      position: static;
+      margin-top: 10px; 
+    }
+  
+    .myProduct-btn {
+      margin-top: 10px;
+    }
+  }
+  

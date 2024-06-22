@@ -1,0 +1,18 @@
+.carousel-control-next,
+.carousel-control-prev {
+    border-radius: 100%;
+    background-color: gray;
+    height: 10vh;
+    width: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-control-next:hover,
+.carousel-control-prev:hover {
+    background-color: gray;
+}

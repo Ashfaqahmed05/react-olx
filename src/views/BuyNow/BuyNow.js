@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
 import { auth } from '../../Config/firebase/DB';
 import { db } from '../../Config/firebase/DB';
 import toast from 'react-hot-toast';
+import moment from 'moment';
 import "./style.css";
+import Loader from '../../components/Loader/Loader';
 
 const BuyNow = () => {
     const { id } = useParams();
-    const items = useSelector(state => state.cart);
+    const items = useSelector(state => state.cart.cart);
     const selectedItem = items.find(item => item.Product_ID === id);
 
 
@@ -94,6 +96,13 @@ const BuyModal = ({ title, price, quantity, discountedTotal, setShowModal, produ
     const [customerName, setCustomerName] = useState('');
     const [contact, setContact] = useState('');
     const [address, setAddress] = useState('');
+    const [loading, setLoading] = useState(false)
+
+    const orderDate = moment().format("MMM Do YY");
+
+
+
+   
 
 
     const handleSubmit = async (e) => {
@@ -111,9 +120,10 @@ const BuyModal = ({ title, price, quantity, discountedTotal, setShowModal, produ
             customerName: customerName,
             contact: contact,
             address: address,
-            Customer_ID: currentUserID
+            Customer_ID: currentUserID,
+            orderAt: orderDate
         };
-
+        setLoading(true)
         try {
             const docRef = await addDoc(collection(db, "orders"), orderData);
             const orderId = docRef.id;
@@ -125,9 +135,12 @@ const BuyModal = ({ title, price, quantity, discountedTotal, setShowModal, produ
             toast.error(error.message)
             console.error("Error adding order: ", error);
         }
-
+        setLoading(false)
     };
 
+        if(loading){
+            return <Loader />
+        }
     return (
         <div className="modal fade show" style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }} tabIndex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
             <div className="modal-dialog">

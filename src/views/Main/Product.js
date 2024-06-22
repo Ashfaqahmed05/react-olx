@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { db, getDocs, collection, query, where } from "../../Config/firebase/DB";
+import { db, collection, query, where, getDocs } from "../../Config/firebase/DB";
+import { useSelector } from "react-redux";
 import ProductCard from "../../components/Cards/ProductCard";
 import "./product.css";
-import { BoxIconElement } from "boxicons";
 import Slider from "../../components/Slider/Slider";
+import Loader from "../../components/Loader/Loader";
+import 'boxicons';
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
+  const searchTerm = useSelector((state) => state.search);
   const [categoryNotFound, setCategoryNotFound] = useState(false);
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
   const fetchProducts = async (category) => {
+    setLoading(true);
     try {
       let q;
       if (category) {
@@ -35,43 +39,59 @@ function ProductPage() {
     } catch (error) {
       console.error("Error fetching products:", error);
     }
+    setLoading(false);
   };
-   if (!products.length && !categoryNotFound) {
-    return (
-      <div className="loadingDiv">
-        <div className="loader"></div>
 
-      </div>
+  const filteredProducts = products.filter((product) =>
+    product.Title.toLowerCase().includes(searchTerm?.toLowerCase())
   );
-  }
 
   return (
-    <div className="main container" >
+    <div className="main container">
       <Slider />
       <div>
         <hr />
-      <div className="categoryDiv" style={{ marginBottom: '50px' }}>
-        <h1 className="heading">Categories</h1>
-        <div style={{ display: "flex",flexWrap: "wrap" , alignItems: "center"}} className="buttons">
-         <div className="reset" onClick={() => fetchProducts()}><box-icon name='reset'></box-icon></div>
-          <button onClick={() => fetchProducts("car")}>Cars</button>
-          <button onClick={() => fetchProducts("bike")}>Bikes</button>
-          <button onClick={() => fetchProducts("cloth")}>Clothes</button>
-          <button onClick={() => fetchProducts("mobile")}>Mobiles</button>
-          <button onClick={() => fetchProducts("property")}>Property</button>
-          <button onClick={() => fetchProducts("other")}>Others</button>
+        <div className="categoryDiv" style={{ marginBottom: "50px" }}>
+          <h1 className="heading">Categories</h1>
+          <div
+            style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
+            className="buttons"
+          >
+            <div className="reset" onClick={() => fetchProducts()}>
+              <box-icon name="reset"></box-icon>
+            </div>
+            <button onClick={() => fetchProducts("car")}>Cars</button>
+            <button onClick={() => fetchProducts("bike")}>Bikes</button>
+            <button onClick={() => fetchProducts("cloth")}>Clothes</button>
+            <button onClick={() => fetchProducts("mobile")}>Mobiles</button>
+            <button onClick={() => fetchProducts("property")}>Property</button>
+            <button onClick={() => fetchProducts("other")}>Others</button>
+          </div>
+          <hr />
+         
         </div>
-        <hr />
-        {categoryNotFound && <p>Item not found for the selected category.</p>}
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            {filteredProducts.length ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                }}
+              >
+                {filteredProducts.map((product, index) => (
+                  <ProductCard key={product.id || index} product={product} />
+                ))}
+              </div>
+            ) : (
+              <p>Search Item or category not Found</p>
+            )}
+          </>
+        )}
       </div>
-      <div
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
-      >
-        {products.map((product, index) => (
-          <ProductCard key={product.UserId || index} product={product} />
-        ))}
-      </div>
-    </div>
     </div>
   );
 }

@@ -1,20 +1,22 @@
-import { configureStore } from '@reduxjs/toolkit'
-import cartReducer from './cartSlice';// Assuming cartSlice is a slice object
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "./cartSlice";
+import searchReducer from "./searchSlice";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
-    key: 'root',
-    storage,
+const cartPersistConfig = {
+  key: "cart",
+  storage,
 };
-const persistedReducer = persistReducer(persistConfig, cartReducer);
+const persistedCartReducer = persistReducer(cartPersistConfig, cartReducer);
 
 const store = configureStore({
-    reducer: persistedReducer,
+  reducer: {
+    cart: persistedCartReducer,
+    search: searchReducer,
+  },
 });
 
 const persistor = persistStore(store);
 
 export { store, persistor };
-
-

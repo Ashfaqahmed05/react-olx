@@ -1,3 +1,9 @@
+footer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .footer {
     background-color: #333; 
     color: white;
@@ -14,6 +20,9 @@
     margin: 0;
 
   }
+  .main{
+    width: 100%;
+  }
   .footertop div{
     padding: 0px 10px;
   }
@@ -21,7 +30,7 @@
     padding: 30px 0px;
     margin: 0px;
     display: flex;
-    justify-content: center;
+    justify-content: center ;
     width: 100% !important;
   }
   .footertop h5{

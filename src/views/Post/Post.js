@@ -6,6 +6,7 @@ import { auth } from "../../Config/firebase/DB";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Loader from "../../components/Loader/Loader";
 
 const PostPage = () => {
   const [productTitle, setProductTitle] = useState("");
@@ -17,6 +18,7 @@ const PostPage = () => {
   const [selectedFile, setSelectedFile] = useState([]);
   const [location, setLocation] = useState('')
   const [contact, setContact] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const storage = getStorage();
   const navigate = useNavigate()
@@ -36,6 +38,7 @@ const PostPage = () => {
 
   const handlePostClick = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const urls = [];
       if (!productTitle || !price || !selectedFile.length) {
@@ -76,9 +79,13 @@ const PostPage = () => {
       console.error(error);
       toast.error("Error adding post with file");
     }
-
+    setLoading(false)
 
   };
+
+  if (loading) {
+    return <Loader />
+  }
 
   return (
     <div>
@@ -98,19 +105,19 @@ const PostPage = () => {
         </div>
 
         <div className="input-container">
-          <label htmlFor="category"> Category: 
-          <select
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="other">Other</option>
-            <option value="car">Vehicle</option>
-            <option value="bike">Bike</option>
-            <option value="cloth">Cloth</option>
-            <option value="property">Property</option>
-            <option value="mobile">Mobile</option>
-          </select>
+          <label htmlFor="category"> Category:
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="other">Other</option>
+              <option value="car">Vehicle</option>
+              <option value="bike">Bike</option>
+              <option value="cloth">Cloth</option>
+              <option value="property">Property</option>
+              <option value="mobile">Mobile</option>
+            </select>
           </label>
         </div>
 
